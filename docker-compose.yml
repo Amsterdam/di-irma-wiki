@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  bookstack:
+    image: linuxserver/bookstack
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DB_HOST=bookstack_db
+      - DB_USER=bookstack
+      - DB_PASS=tmpmysql
+      - DB_DATABASE=bookstackapp
+    volumes:
+      - ./config:/config
+      - ./themes:/var/www/html/themes
+      - ./custom:/var/www/html/public/custom
+    ports:
+      - 7000:80
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    image: linuxserver/mariadb
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=tmpmysql
+      - TZ=Europe/Amsterdam
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=tmpmysql
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
