@@ -1,0 +1,13 @@
+FROM linuxserver/mariadb
+
+ENV PUID 1000
+ENV PGID 1000
+ENV MYSQL_ROOT_PASSWORD tmpmysql
+ENV TZ Europe/Amsterdam
+ENV MYSQL_DATABASE bookstackapp
+ENV MYSQL_USER bookstack
+ENV MYSQL_PASSWORD tmpmysql
+
+COPY ./config /config
+
+EXPOSE 7000
