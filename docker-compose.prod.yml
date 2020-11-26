@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  bookstack:
+    build:
+      context: .
+      dockerfile: Dockerfile.wiki
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DB_HOST=bookstack_db
+      - DB_PORT=3306
+      - DB_DATABASE=bookstackapp
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=tmpmysql
+    restart: unless-stopped
+    ports:
+      - 7000:80
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=tmpmysql
+      - TZ=Europe/Amsterdam
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=tmpmysql
+    restart: unless-stopped
+    ports:
+      - 3306:3306

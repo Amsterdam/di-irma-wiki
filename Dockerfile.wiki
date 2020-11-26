@@ -1,14 +1,5 @@
 FROM linuxserver/bookstack
 
-ENV PUID 1000
-ENV PGID 1000
-ENV DB_HOST bookstack_db
-ENV DB_USER bookstack
-ENV DB_PASS tmpmysql
-ENV DB_DATABASE bookstackapp
-
-COPY ./config /config
+COPY ./config-wiki /config
 COPY ./themes /var/www/html/themes
 COPY ./custom /var/www/html/public/custom
-
-EXPOSE 7000
