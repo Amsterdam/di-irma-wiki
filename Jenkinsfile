@@ -34,7 +34,7 @@ node {
 }
 
 String BRANCH = "${env.BRANCH_NAME}"
-if (BRANCH == "master" || BRANCH == "develop") {
+if (BRANCH == "main" || BRANCH == "develop") {
     node {
         stage('Push acceptance image - wiki') {
             tryStep "image tagging", {
@@ -63,7 +63,7 @@ if (BRANCH == "master" || BRANCH == "develop") {
             }
         }
     }
-if (BRANCH == "master") {
+if (BRANCH == "main") {
     // stage('Waiting for approval') {
     //     slackSend channel: '#ci-channel', color: 'warning', message: 'irma_frontend is waiting for Production Release - please confirm'
     //     input "Deploy to Production?"
