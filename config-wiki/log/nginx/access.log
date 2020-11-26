@@ -1,0 +1,2 @@
+172.24.0.1 - - [26/Nov/2020:12:47:31 +0000] "GET / HTTP/1.1" 302 145 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"
+172.24.0.1 - - [26/Nov/2020:12:47:33 +0000] "GET /books/starter-guide/page/een-korte-introductie HTTP/1.1" 500 5 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"
