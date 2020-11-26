@@ -10,4 +10,4 @@ ENV MYSQL_PASSWORD tmpmysql
 
 COPY ./config /config
 
-EXPOSE 7000
+EXPOSE 3306
