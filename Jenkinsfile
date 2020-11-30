@@ -52,7 +52,17 @@ if (BRANCH == "main" || BRANCH == "develop") {
         }
     }
     node {
-        stage("Deploy to ACC") {
+        stage("Deploy to ACC - db") {
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
+                    parameters: [
+                            [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
+                            [$class: 'StringParameterValue', name: 'PLAYBOOKPARAMS', value: "-e cmdb_id=app_irma-wiki-db"]
+                    ]
+            }
+        }
+        stage("Deploy to ACC - wiki") {
             tryStep "deployment", {
                 build job: 'Subtask_Openstack_Playbook',
                     parameters: [
@@ -87,7 +97,17 @@ if (BRANCH == "main") {
         }
     }
     node {
-        stage("Deploy") {
+        stage("Deploy - db") {
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
+                parameters: [
+                    [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
+                    [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
+                    [$class: 'StringParameterValue', name: 'PLAYBOOKPARAMS', value: "-e cmdb_id=app_irma-wiki-db"]
+                ]
+            }
+        }
+        stage("Deploy - wiki") {
             tryStep "deployment", {
                 build job: 'Subtask_Openstack_Playbook',
                 parameters: [
