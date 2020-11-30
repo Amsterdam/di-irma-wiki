@@ -11,7 +11,7 @@ services:
       - DB_PASS=tmpmysql
       - DB_DATABASE=bookstackapp
     volumes:
-      - ./config:/config
+      - ./config-wiki:/config
       - ./themes:/var/www/html/themes
       - ./custom:/var/www/html/public/custom
     ports:
@@ -31,5 +31,7 @@ services:
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=tmpmysql
     volumes:
-      - ./config:/config
+      - ./config-db:/config
     restart: unless-stopped
+    ports:
+      - 3306:3306
