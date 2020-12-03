@@ -28,16 +28,6 @@ server {
   	return 200 'Healty!';
 	}
 
-	location /wiki/test {
-		add_header Content-Type text/plain;
-		access_log off;
-  	return 200 'This works!';
-	}
-
-	location = / {
-		rewrite ^/$ $scheme://$http_host$request_uri$initial_page redirect;
-	}
-
 	location / {
 		try_files $uri $uri/ /index.php?$query_string;
 	}
