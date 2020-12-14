@@ -22,6 +22,18 @@ server {
 					try_files $uri $uri/ /index.php?$args;
 	}
 
+	location /wiki/test {
+		add_header Content-Type text/plain;
+		access_log off;
+  	return 200 'test in wiki!';
+	}
+
+	location /test {
+		add_header Content-Type text/plain;
+		access_log off;
+  	return 200 'test in root!';
+	}
+
 	location /health {
 		add_header Content-Type text/plain;
 		access_log off;
