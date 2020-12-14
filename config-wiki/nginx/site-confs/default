@@ -16,11 +16,11 @@ server {
 
 	client_max_body_size 0;
 
-        error_page 599 = @noauth;
+	error_page 599 = @noauth;
 
-        location @noauth {
-                try_files $uri $uri/ /index.php?$args;
-        }
+	location @noauth {
+					try_files $uri $uri/ /index.php?$args;
+	}
 
 	location /health {
 		add_header Content-Type text/plain;
@@ -29,7 +29,6 @@ server {
 	}
 
 	location / {
-		proxy_set_header Host $host/wiki;
 		try_files $uri $uri/ /index.php?$query_string;
 	}
 
@@ -41,6 +40,5 @@ server {
 		#fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include /etc/nginx/fastcgi_params;
-
 	}
 }
