@@ -29,6 +29,35 @@ server {
 	}
 
 	location / {
+		add_header x0-NGINX-DEBUG '=========================================';
+		add_header x1-NGINX-http_user_agent $http_user_agent;
+		add_header xA-NGINX-http_cookie $http_cookie;
+		add_header xB-NGINX-request $request;
+		add_header xC-NGINX-request_body $request_body;
+		add_header xD-NGINX-request_method $request_method;
+		add_header xE-NGINX-request_time $request_time;
+		add_header xF-NGINX-request_uri $request_uri;
+		add_header xG-NGINX-scheme $scheme;
+		add_header xH-NGINX-request_server_name $server_name;
+		add_header xI-NGINX-request_server_port $server_port;
+		add_header xJ-NGINX-uri $uri;
+		add_header xK-NGINX-args $args;
+		add_header xL-NGINX-is_args $is_args;
+		add_header xM-NGINX-request_filename $request_filename;
+		add_header xN-NGINX-pid $pid;
+		add_header xO-NGINX-document_root $document_root;
+		add_header xP-NGINX-document_uri $document_uri;
+		add_header xQ-NGINX-host $host;
+		add_header xR-NGINX-hostname $hostname;
+		add_header xS-NGINX-proxy_protocol_addr $proxy_protocol_addr;
+		add_header xT-NGINX-proxy_protocol_port $proxy_protocol_port;
+		add_header xU-NGINX-query_string $query_string;
+		add_header xV-NGINX-realpath_root $realpath_root;
+		add_header xW-NGINX-remote_addr $remote_addr;
+		add_header xX-NGINX-remote_port $remote_port;
+		add_header xY-NGINX-remote_user $remote_user;
+		add_header xZ-NGINX-DEBUG '=========================================';
+
 		try_files $uri $uri/ /index.php?$query_string;
 	}
 
