@@ -29,6 +29,7 @@ server {
 	}
 
 	location / {
+		proxy_set_header Host $host/wiki;
 		try_files $uri $uri/ /index.php?$query_string;
 	}
 
