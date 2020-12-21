@@ -1,3 +1,8 @@
-/config-db/
+/config-db/databases
+/config-db/log
 /config-wiki/log
-/www/laravel.log
+/config-wiki/www/files
+/config-wiki/www/images
+/config-wiki/www/uploads
+/config-wiki/www/laravel.log
+
