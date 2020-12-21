@@ -8,11 +8,6 @@ server {
 	ssl_certificate /config/keys/cert.crt;
 	ssl_certificate_key /config/keys/cert.key;
 
-	location = /wiki/? {
-		set $initial_page "books/starter-guide/page/een-korte-introductie";
-		rewrite ^/$ $scheme://$http_host$request_uri$initial_page redirect;
-	}
-
 	location /wiki {
 		proxy_set_header Host wiki.local;
 		proxy_pass http://127.0.0.1:80/;
