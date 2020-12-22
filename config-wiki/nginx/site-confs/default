@@ -8,9 +8,32 @@ server {
 	ssl_certificate /config/keys/cert.crt;
 	ssl_certificate_key /config/keys/cert.key;
 
-	location /wiki {
-		proxy_set_header Host wiki.local;
-		proxy_pass http://127.0.0.1:80/;
+	location = /wiki {
+		rewrite ^/wiki$ /wiki/;
+	}
+
+	set $initial_page "books/starter-guide/page/een-korte-introductie";
+	location = /wiki/ {
+		rewrite ^/wiki/$ $scheme://$host$uri$initial_page last;
+	}
+
+	location ~* /wiki/(.*) {
+		proxy_pass $scheme://127.0.0.1:444/$1$args;
+		proxy_pass_request_headers on;
+		proxy_pass_request_body on;
+		proxy_redirect off;
+
+		proxy_http_version 1.1;
+		proxy_cache_bypass $http_upgrade
+		proxy_set_header Host $proxy_host;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+		proxy_set_header Accept-Encoding "";
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Host $host;
+		proxy_set_header X-Forwarded-Port $server_port;
 
 		gzip on;
 		gzip_proxied any;
@@ -25,18 +48,20 @@ server {
 
 server {
 	server_name wiki.local;
-	listen 80;
+	listen 444;
+
+	ssl_certificate /config/keys/cert.crt;
+	ssl_certificate_key /config/keys/cert.key;
 
 	root /var/www/html/public;
 	index index.php;
-
 	# access_log off;
 
 	allow 127.0.0.1;
 	deny all;
 
 	location / {
-		try_files $uri $uri/ /index.php?$args;
+		try_files $uri $uri/ /index.php$is_args$args?;
 	}
 
 	location ~ \.php$ {
