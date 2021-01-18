@@ -68,11 +68,11 @@ body {
   display: none;
 }
 
-#content a {
+#content main a {
   text-decoration: underline;
 }
 
-#content table td {
+#content main table td {
   border: none;
 }
 
