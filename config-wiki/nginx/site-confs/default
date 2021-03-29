@@ -9,41 +9,17 @@ server {
 	ssl_certificate_key /config/keys/cert.key;
 
 	location = /wiki {
-		rewrite ^/wiki$ /wiki/;
+		rewrite ^ https://www.sidn.nl/irma-powered-by-sidn/irma-startergids-voor-organisaties permanent;
 	}
-
-	set $initial_page "books/starter-guide/page/een-korte-introductie";
-	location = /wiki/ {
-		rewrite ^/wiki/$ $scheme://$host$uri$initial_page last;
-	}
-
-	location ~* /wiki/(.*) {
-		proxy_pass $scheme://127.0.0.1:444/$1$is_args$args;
-		proxy_pass_request_headers on;
-		proxy_pass_request_body on;
-		proxy_redirect off;
-
-		proxy_http_version 1.1;
-		proxy_cache_bypass $http_upgrade
-		proxy_set_header Host $proxy_host;
-		proxy_set_header Referer "/";
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection "upgrade";
-		proxy_set_header Accept-Encoding "";
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_set_header X-Forwarded-Host $host;
-		proxy_set_header X-Forwarded-Port $server_port;
-
-		gzip on;
-		gzip_proxied any;
-	}
-
+	
 	location = /wiki/health {
-		add_header Content-Type text/plain;
+   		add_header Content-Type text/plain;
 		access_log off;
 		return 200 'Healty!!';
+	}
+
+	location ~ ^/wiki/.*$ {
+  		rewrite ^ https://www.sidn.nl/irma-powered-by-sidn/irma-startergids-voor-organisaties permanent;
 	}
 }
 
