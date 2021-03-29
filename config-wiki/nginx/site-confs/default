@@ -8,23 +8,18 @@ server {
 	ssl_certificate /config/keys/cert.crt;
 	ssl_certificate_key /config/keys/cert.key;
 
-	location = /wiki/? {
-		set $initial_page "books/starter-guide/page/een-korte-introductie";
-		rewrite ^/$ $scheme://$http_host$request_uri$initial_page redirect;
+	location = /wiki {
+		rewrite ^ https://www.sidn.nl/irma-powered-by-sidn/irma-startergids-voor-organisaties permanent;
 	}
-
-	location /wiki {
-		proxy_set_header Host wiki.local;
-		proxy_pass http://127.0.0.1:80/;
-
-		gzip on;
-		gzip_proxied any;
-	}
-
+	
 	location = /wiki/health {
-		add_header Content-Type text/plain;
+   		add_header Content-Type text/plain;
 		access_log off;
 		return 200 'Healty!!';
+	}
+
+	location ~ ^/wiki/.*$ {
+  		rewrite ^ https://www.sidn.nl/irma-powered-by-sidn/irma-startergids-voor-organisaties permanent;
 	}
 }
 
